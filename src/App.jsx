@@ -4,13 +4,14 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Registration from './Components/Registration/Registration'
 import Navbar from './Components/Navbar/Navbar'
+import { Outlet } from 'react-router-dom'
 
 function App() {
   
   return (
     <>
        <Navbar></Navbar> 
-     <Registration></Registration>
+        <Outlet></Outlet>
     </>
   )
 }

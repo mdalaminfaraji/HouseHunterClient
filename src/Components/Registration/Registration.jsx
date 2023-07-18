@@ -1,18 +1,55 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 const Registration = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors },reset
       } = useForm();
     
-      const onSubmit = (data) => {
+      const onSubmit =async (data) => {
+
+        try{
+          const response=await   fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+              });
+          
+               console.log(response);
+              if (response.ok) {
+                     Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Registration Successful',
+                    showConfirmButton: false,
+                    timer: 1500
+                   })
+                reset(); // Clear the form after successful registration
+              }
+
+        }catch(error){
+            console.error('Error occurred during registration:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'User Already Exit!',
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+        }
+
+    
+
+
         console.log(data);
+        // reset()
       };
     return (
         <div className="max-w-md mx-auto mt-8">
-      <h2 className="text-2xl font-bold mb-4">Registration Form</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">Registration Form</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label htmlFor="fullName" className="block mb-2">
@@ -57,7 +94,7 @@ const Registration = () => {
             {...register('phoneNumber', {
               required: 'Phone Number is required',
               pattern: {
-                value: /^\d{10}$/,
+                value: /^\d{11}$/,
                 message: 'Please enter a valid 10-digit phone number',
               },
             })}
@@ -112,7 +149,7 @@ const Registration = () => {
 
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          className="bg-blue-500 w-32 block mx-auto text-white px-4 py-2 rounded-md hover:bg-blue-600"
         >
           Register
         </button>
