@@ -3,14 +3,18 @@ export const AuthContext=createContext(null);
 const AuthProvider = ({children}) => {
     const [user, setUser]=useState(null);
     const [userRole, setUserRole]=useState(null);
+    const [userEmail, setUserEmail]=useState(null);
     const [loading, setLoading]=useState(true);
+    console.log(userEmail);
     useEffect(async()=>{
         setLoading(true);
         const userDataJson=localStorage.getItem('user');
            const userData=JSON.parse(userDataJson);
            setUser(userData?.fullName?userData?.fullName:'no user');
+        //    console.log(userData.email);
            setUserRole(userData?.role?userData?.role:'no role');
-           console.log(userData.role);
+           setUserEmail(userData?.email?userData?.email:'no email')
+         
            setLoading(false);
      },[])
     const handleLogout = () => {
@@ -22,7 +26,7 @@ const AuthProvider = ({children}) => {
         setLoading(false);
       };
     const authInfo={
-        user, handleLogout, setUser, userRole, setLoading, loading
+        user, handleLogout, setUser, userRole, setLoading, loading, userEmail
     }
     return (
         <AuthContext.Provider value={authInfo}>

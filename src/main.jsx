@@ -14,6 +14,7 @@ import Login from './Components/Login/Login.jsx';
 import AuthProvider from './Components/Provider/AuthProvider.jsx';
 import Dashboard from './Components/Dashboards/DashboardLayout/Dashboard.jsx';
 import AddNewHouse from './Components/Dashboards/HouseWoner/AddNewHouse.jsx';
+import OwnerHome from './Components/Dashboards/HouseWoner/OwnerHome.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path:'addHouse',
         element:<AddNewHouse></AddNewHouse>
+      },
+      {
+        path:'ownerHome',
+        element:<OwnerHome></OwnerHome>
       }
     ]
   }

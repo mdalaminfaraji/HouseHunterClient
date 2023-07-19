@@ -15,7 +15,7 @@ const Dashboard = () => {
 
     if(userRole=="House Owner"){
             ComponentToRender = <>
-            <li className='border-4 shadow-md my-2 text-white text-xl rounded-2xl'><NavLink >House Owner home</NavLink></li>
+            <li className='border-4 shadow-md my-2 text-white bg-[#193D3D] text-xl rounded-2xl hover:bg-[#04AA6D] '><NavLink to='/dashboard/ownerHome'>House Owner home</NavLink></li>
             <li className='border-4 shadow-md my-2 text-white text-xl rounded-2xl'><NavLink > Manage Home</NavLink></li>
             <li className='border-4 shadow-md my-2 text-white bg-[#193D3D] text-xl rounded-2xl hover:bg-[#04AA6D]'><NavLink to="/dashboard/addHouse"> Add New house</NavLink></li>
             <li className='border-4 shadow-md my-2 text-white text-xl rounded-2xl'><NavLink > Booking home</NavLink></li>

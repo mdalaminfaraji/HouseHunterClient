@@ -1,15 +1,44 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import AuthProvider, { AuthContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const AddNewHouse = () => {
+    const{userEmail}=useContext(AuthContext);
+    console.log(userEmail);
     const {
         handleSubmit,
         control,
-        formState: { errors },
+        formState: { errors },reset
       } = useForm();
     
       const onSubmit = (data) => {
-        console.log(data);
+      const {name, address, availabilityDate, bathrooms, bedrooms, city, description, phoneNumber, picture, rentPerMonth, roomSize}=data;
+          const allData={
+            name, email:userEmail, address, availabilityDate, bathrooms:parseInt(bathrooms), bedrooms:parseInt(bedrooms), city, description, phoneNumber, picture, rentPerMonth:parseInt(rentPerMonth), roomSize:parseInt(roomSize)
+          }
+        fetch('http://localhost:5000/addHouse', {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body:JSON.stringify(allData),
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.insertedId){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: `Added house successfully`,
+                    showConfirmButton: false,
+                    timer: 1500
+                   })
+                   reset();
+            }
+           
+        })
+       
       };
     return (
       
