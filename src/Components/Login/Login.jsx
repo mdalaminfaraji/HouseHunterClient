@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Login = () => {
     const {
@@ -9,7 +10,7 @@ const Login = () => {
         formState: { errors },reset
       } = useForm();
     
-      const [data, setData] = useState(null);
+      const {setUser}=useContext(AuthContext)
     
       const onSubmit = async (formData) => {
         try {
@@ -38,7 +39,7 @@ const Login = () => {
                })
             
             // Set the user data in state
-            setData(user);
+           setUser(user?user.fullName:"No user");
            reset();
             // You can redirect to another page or handle successful login accordingly
           } else {
@@ -102,13 +103,7 @@ const Login = () => {
           </button>
         </form>
   
-        {data && (
-          <div className="mt-4">
-            <h3 className="text-lg font-bold">User Data:</h3>
-            <p>Email: {data.email}</p>
-            {/* Other user data */}
-          </div>
-        )}
+
       </div>
     );
 };
