@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../Provider/AuthProvider';
 const Registration = () => {
+    const Navigate=useNavigate();
+    const {setUser}=useContext(AuthContext);
     const {
         register,
         handleSubmit,
@@ -29,6 +33,8 @@ const Registration = () => {
                     timer: 1500
                    })
                 reset(); // Clear the form after successful registration
+                // setUser(null);
+              Navigate('/login')
               }
 
         }catch(error){
@@ -154,6 +160,7 @@ const Registration = () => {
           Register
         </button>
       </form>
+      <p className='text-center'>Already have an account?<Link to='/login'> <span className='text-blue-500 underline'> please Login</span></Link></p>
     </div>
     );
 };

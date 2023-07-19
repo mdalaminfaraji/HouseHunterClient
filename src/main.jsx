@@ -12,6 +12,8 @@ import Home from './Components/pages/Home/Home.jsx';
 import Registration from './Components/Registration/Registration.jsx';
 import Login from './Components/Login/Login.jsx';
 import AuthProvider from './Components/Provider/AuthProvider.jsx';
+import Dashboard from './Components/Dashboards/DashboardLayout/Dashboard.jsx';
+import AddNewHouse from './Components/Dashboards/HouseWoner/AddNewHouse.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +32,16 @@ const router = createBrowserRouter([
     }
     ]
   },
+  {
+    path:"dashboard",
+    element:<Dashboard></Dashboard>,
+    children:[
+      {
+        path:'addHouse',
+        element:<AddNewHouse></AddNewHouse>
+      }
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

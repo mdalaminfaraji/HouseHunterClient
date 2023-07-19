@@ -2,8 +2,10 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../Provider/AuthProvider';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const Navigate=useNavigate();
     const {
         register,
         handleSubmit,
@@ -42,6 +44,7 @@ const Login = () => {
            setUser(user?user.fullName:"No user");
            reset();
             // You can redirect to another page or handle successful login accordingly
+            Navigate('/');
           } else {
             console.log('Login failed');
           }
@@ -102,7 +105,7 @@ const Login = () => {
             Login
           </button>
         </form>
-  
+        <p className='text-center'>Don't have an account?<Link to='/register'> <span className='text-blue-500 underline'> please Register</span></Link></p>
 
       </div>
     );

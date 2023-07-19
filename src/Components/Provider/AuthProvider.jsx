@@ -2,27 +2,27 @@ import React, { createContext, useEffect, useState } from 'react';
 export const AuthContext=createContext(null);
 const AuthProvider = ({children}) => {
     const [user, setUser]=useState(null);
+    const [userRole, setUserRole]=useState(null);
     const [loading, setLoading]=useState(true);
-    useEffect(()=>{
+    useEffect(async()=>{
+        setLoading(true);
         const userDataJson=localStorage.getItem('user');
            const userData=JSON.parse(userDataJson);
            setUser(userData?.fullName?userData?.fullName:'no user');
-           
-           // console.log(userData.fullName);
+           setUserRole(userData?.role?userData?.role:'no role');
+           console.log(userData.role);
+           setLoading(false);
      },[])
     const handleLogout = () => {
-        // Remove the user token from the local storage
+        setLoading(true);
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        // Optional: You can also clear any user data from state if needed
         setUser(null);
-        // Any other logout-related logic can be added here
-    
-        // For demonstration purposes, simply reload the page after logout
         window.location.reload();
+        setLoading(false);
       };
     const authInfo={
-        user, handleLogout, setUser
+        user, handleLogout, setUser, userRole, setLoading, loading
     }
     return (
         <AuthContext.Provider value={authInfo}>
